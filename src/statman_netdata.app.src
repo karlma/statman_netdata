@@ -1,0 +1,17 @@
+{application, statman_netdata,
+ [{description, "An OTP application"},
+  {vsn, "0.1.0"},
+  {registered, []},
+  {mod, { statman_netdata_app, []}},
+  {applications,
+   [kernel,
+    stdlib,
+    statman
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, []},
+  {licenses, ["Apache 2.0"]},
+  {links, []}
+ ]}.

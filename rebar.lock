@@ -1,0 +1,12 @@
+[{<<"decorators">>,
+  {git,"git://github.com/chrisavl/erlang_decorators.git",
+       {ref,"b14949efc938157604447adc29a71913298fe67f"}},
+  1},
+ {<<"parse_trans">>,
+  {git,"git://github.com/uwiger/parse_trans.git",
+       {ref,"c7511b677c35049561d0f6a77a5a09a1f517c6f6"}},
+  2},
+ {<<"statman">>,
+  {git,"git://github.com/karlma/statman.git",
+       {ref,"39358a61ef7cc26ddeba537f01760a341dbcec83"}},
+  0}].
