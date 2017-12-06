@@ -167,47 +167,47 @@ send_to_netdata(Socket, Data) when is_binary(Data) ->
 -spec(format_data(L::list(), Data::list()) -> error | {ok, NewData::binary()}).
 format_data([], Data) ->
     {ok, list_to_binary(lists:flatten(Data))};
-format_data([H|T], Data) ->
-    KL = [{{vm, process_count}, "vm.process_count", "g", 1}
-            ,{{vm, processes_with_queues}, "vm.processes_with_queues", "g"}
-            ,{{vm, messages_in_queue}, "vm.messages_in_queue", "g"}
-            ,{{vm, run_queue}, "vm.run_queue", "g"}
-            ,{{vm, io_in_bytes}, "vm.io_in_bytes", "c"}
-            ,{{vm, io_out_bytes}, "vm.io_out_bytes", "c"}
-            ,{{vm_ets, objects}, "vm_ets.objects", "g"}
-            ,{{vm_memory, total}, "vm_memory.total", "g"}
-            ,{{vm_memory, system}, "vm_memory.system", "g"}
-            ,{{vm_memory, processes_used}, "vm_memory.processes_used", "g"}
-            ,{{vm_memory, ets}, "vm_memory.ets", "g"}
-            ,{{vm_memory, processes}, "vm_memory.processes", "g"}
-            ,{{vm_memory, atom}, "vm_memory.atom", "g"}
-            ,{{vm_memory, atom_used}, "vm_memory.atom_used", "g"}
-            ,{{vm_memory, code}, "vm_memory.code", "g"}
-            ,{{vm_memory, binary}, "vm_memory.binary", "g"}
-            ,{{ejabberd, sm_register_connection}, "sm_register_connection", "c"}
-            ,{{ejabberd, offline_message}, "offline_message", "c"}
-            ,{{ejabberd, sm_remove_connection}, "sm_remove_connection", "c"}
-            ,{{ejabberd, user_send_packet}, "user_send_packet", "c"}
-            ,{{ejabberd, user_receive_packet}, "user_receive_packet", "c"}
-            ,{{ejabberd, s2s_send_packet}, "s2s_send_packet", "c"}
-            ,{{ejabberd, s2s_receive_packet}, "s2s_receive_packet", "c"}
-            ,{{ejabberd, remove_user}, "remove_user", "c"}
-            ,{{ejabberd, register_user}, "register_user", "c"}
-            ,{{mnesia, session_size}, "mnesia.session_size", "g"}
-            ,{{mnesia, vcard_size}, "mnesia.vcard_size", "g"}
-            ,{{mnesia, last_activity_size}, "mnesia.last_activity", "g"}],
+format_data([H | T], Data) ->
+    KL = [{{vm, process_count}, "vm.process_count", "g"}
+        , {{vm, processes_with_queues}, "vm.processes_with_queues", "g"}
+        , {{vm, messages_in_queue}, "vm.messages_in_queue", "g"}
+        , {{vm, run_queue}, "vm.run_queue", "g"}
+        , {{vm, io_in_bytes}, "vm.io_in_bytes", "c"}
+        , {{vm, io_out_bytes}, "vm.io_out_bytes", "c"}
+        , {{vm_ets, total_size}, "vm_ets.total_size", "g"}
+        , {{vm_ets, last_activity}, "vm_ets.last_activity", "g"}
+        , {{vm_ets, vcard_search}, "vm_ets.vcard_search", "g"}
+        , {{vm_ets, translations}, "vm_ets.translations", "g"}
+        , {{vm_ets, session}, "vm_ets.session", "g"}
+        , {{vm_ets, sql_pool}, "vm_ets.sql_pool", "g"}
+        , {{vm_memory, total}, "vm_memory.total", "g"}
+        , {{vm_memory, system}, "vm_memory.system", "g"}
+        , {{vm_memory, processes_used}, "vm_memory.processes_used", "g"}
+        , {{vm_memory, ets}, "vm_memory.ets", "g"}
+        , {{vm_memory, processes}, "vm_memory.processes", "g"}
+        , {{vm_memory, atom}, "vm_memory.atom", "g"}
+        , {{vm_memory, atom_used}, "vm_memory.atom_used", "g"}
+        , {{vm_memory, code}, "vm_memory.code", "g"}
+        , {{vm_memory, binary}, "vm_memory.binary", "g"}
+        , {{ejabberd, sm_register_connection}, "sm_register_connection", "c"}
+        , {{ejabberd, offline_message}, "offline_message", "c"}
+        , {{ejabberd, sm_remove_connection}, "sm_remove_connection", "c"}
+        , {{ejabberd, user_send_packet}, "user_send_packet", "c"}
+        , {{ejabberd, user_receive_packet}, "user_receive_packet", "c"}
+        , {{ejabberd, s2s_send_packet}, "s2s_send_packet", "c"}
+        , {{ejabberd, s2s_receive_packet}, "s2s_receive_packet", "c"}
+        , {{ejabberd, remove_user}, "remove_user", "c"}
+        , {{ejabberd, register_user}, "register_user", "c"}
+        , {{mnesia, session_size}, "mnesia.session_size", "g"}
+        , {{mnesia, vcard_size}, "mnesia.vcard_size", "g"}
+        , {{mnesia, last_activity_size}, "mnesia.last_activity_size", "g"}],
     case [{K, V} || {key, K} <- H, {value, V} <- H] of
-        [{K, V}|_] ->
+        [{K, V} | _] ->
             case lists:keyfind(K, 1, KL) of
                 false ->
-                    case K of
-                        {vm_ets, Obj} ->
-                            format_data(T, [io_lib:format("ejabberd.vm_ets.~s:~w|g", atom_to_list(Obj), V)|Data]);
-                        _ ->
-                            format_data(T, [Data])
-                    end;
+                    format_data(T, [Data]);
                 {K, KS, Type} ->
-                    format_data(T, [io_lib:format("ejabberd.~s:~w|~s~n", [KS, V, Type])|Data])
+                    format_data(T, [io_lib:format("ejabberd.~s:~w|~s~n", [KS, V, Type]) | Data])
             end;
         [] ->
             format_data(T, [Data])

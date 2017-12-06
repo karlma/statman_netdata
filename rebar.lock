@@ -8,5 +8,5 @@
   2},
  {<<"statman">>,
   {git,"git://github.com/karlma/statman.git",
-       {ref,"9469811fd28be0ea0e926acf3d6aa7734626c3c2"}},
+       {ref,"52d2c0faca3273473befc878d036acb3caa66a42"}},
   0}].
