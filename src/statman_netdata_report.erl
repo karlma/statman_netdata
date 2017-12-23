@@ -198,6 +198,19 @@ format_data([H | T], Data) ->
         , {{ejabberd, s2s_receive_packet}, "s2s_receive_packet", "c"}
         , {{ejabberd, remove_user}, "remove_user", "c"}
         , {{ejabberd, register_user}, "register_user", "c"}
+        , {{ejabberd_restful, connected_users}, "restful.connected_users", "g"}
+        , {{ejabberd_restful, connected_users_vhost}, "restful.connected_users_vhost", "g"}
+        , {{ejabberd_restful, user_sessions_info}, "restful.user_sessions_info", "g"}
+        , {{ejabberd_restful, ban_account}, "restful.ban_account", "g"}
+        , {{ejabberd_restful, kick_user}, "restful.kick_user", "g"}
+        , {{ejabberd_restful, register}, "restful.register", "g"}
+        , {{ejabberd_restful, unregister}, "restful.unregister", "g"}
+        , {{ejabberd_restful, change_password}, "restful.change_password", "g"}
+        , {{ejabberd_restful, send_stanza}, "restful.send_stanza", "g"}
+        , {{ejabberd_restful, add_rosteritem}, "restful.add_rosteritem", "g"}
+        , {{ejabberd_restful, delete_rosteritem}, "restful.delete_rosteritem", "g"}
+        , {{ejabberd_restful, get_vcard}, "restful.get_vcard", "g"}
+        , {{ejabberd_restful, set_vcard}, "restful.set_vcard", "g"}
         , {{mnesia, session_size}, "mnesia.session_size", "g"}
         , {{mnesia, vcard_size}, "mnesia.vcard_size", "g"}
         , {{mnesia, last_activity_size}, "mnesia.last_activity_size", "g"}],
